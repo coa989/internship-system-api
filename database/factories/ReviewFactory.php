@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Assignment;
+use App\Models\Intern;
+use App\Models\Mentor;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +25,11 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'pros' => $this->faker->sentences(5),
+            'cons' => $this->faker->sentences(5),
+            'assignment_id' => Assignment::factory(),
+            'mentor_id' => Mentor::factory(),
+            'intern_id' => Intern::factory()
         ];
     }
 }

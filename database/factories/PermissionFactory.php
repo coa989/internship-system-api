@@ -22,7 +22,22 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            ['name' => 'change-role'],
+            ['name' => 'create-groups'],
+            ['name' => 'edit-groups'],
+            ['name' => 'delete-groups'],
+            ['name' => 'create-mentors'],
+            ['name' => 'edit-mentors'],
+            ['name' => 'delete-mentors'],
+            ['name' => 'create-interns'],
+            ['name' => 'edit-interns'],
+            ['name' => 'delete-interns'],
+            ['name' => 'create-assignments'],
+            ['name' => 'edit-assignments'],
+            ['name' => 'delete-assignments'],
+            ['name' => 'create-reviews'],
+            ['name' => 'edit-reviews'],
+            ['name' => 'delete-reviews'],
         ];
     }
 }
