@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Intern extends Model
 {
     use HasFactory;
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

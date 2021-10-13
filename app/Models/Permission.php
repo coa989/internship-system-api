@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Assignment extends Model
+class Permission extends Model
 {
     use HasFactory;
 
-    public function groups()
+    public function roles()
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Role::class);
     }
 }
