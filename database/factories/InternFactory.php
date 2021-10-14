@@ -31,7 +31,7 @@ class InternFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'cv' => $this->faker->url,
             'github' => $this->faker->url,
-            'group_id' => Group::factory()
+            'group_id' => Group::inRandomOrder()->first()->id
         ];
     }
 }

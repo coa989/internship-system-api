@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupAssignmentTable extends Migration
+class CreateAssignmentGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGroupAssignmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_assignment', function (Blueprint $table) {
+        Schema::create('assignment_group', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id');
             $table->foreignId('assignment_id');
@@ -28,6 +28,6 @@ class CreateGroupAssignmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_assignment');
+        Schema::dropIfExists('assignment_group');
     }
 }

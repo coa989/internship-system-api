@@ -27,7 +27,7 @@ class MentorFactory extends Factory
             'last_name' => $this->faker->lastName,
             'city' => $this->faker->city,
             'skype' => $this->faker->md5,
-            'group_id' => Group::factory(),
+            'group_id' => Group::inRandomOrder()->first()->id
         ];
     }
 }
