@@ -15,7 +15,11 @@ class AssignmentSeeder extends Seeder
      */
     public function run()
     {
-        Assignment::factory(10)
+        $assignments = Assignment::factory(15)
             ->create();
+
+        foreach ($assignments as $assignment) {
+            $assignment->groups()->attach(Group::inRandomOrder()->first()->id);
+        }
     }
 }

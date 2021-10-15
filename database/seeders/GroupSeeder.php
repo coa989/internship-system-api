@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Assignment;
 use App\Models\Group;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +15,6 @@ class GroupSeeder extends Seeder
     public function run()
     {
         Group::factory(5)
-            ->hasAttached(Assignment::factory())
             ->create();
     }
 }
