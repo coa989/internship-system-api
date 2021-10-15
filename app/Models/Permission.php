@@ -9,6 +9,8 @@ class Permission extends Model
 {
     use HasFactory;
 
+    const DELETE_MENTORS = 'delete-mentors';
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);

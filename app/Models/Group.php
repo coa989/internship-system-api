@@ -21,6 +21,6 @@ class Group extends Model
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class);
+        return $this->belongsToMany(Assignment::class)->withTimestamps();
     }
 }

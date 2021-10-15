@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupAssignmentTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateGroupAssignmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_assignment', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id');
-            $table->foreignId('assignment_id');
+            $table->foreignId('role_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateGroupAssignmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_assignment');
+        Schema::dropIfExists('role_user');
     }
 }

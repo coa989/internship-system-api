@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Intern;
 use Illuminate\Database\Seeder;
 
 class InternSeeder extends Seeder
@@ -13,6 +14,7 @@ class InternSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Intern::factory(50)
+            ->create();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mentor;
 use Illuminate\Database\Seeder;
 
 class MentorSeeder extends Seeder
@@ -13,6 +14,7 @@ class MentorSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Mentor::factory(10)
+            ->create();
     }
 }
