@@ -8,6 +8,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/groups', [\App\Http\Controllers\Api\GroupController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/groups/{group}', [\App\Http\Controllers\Api\GroupController::class, 'show']);
 
 Route::post('/auth/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
 Route::post('/auth/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
