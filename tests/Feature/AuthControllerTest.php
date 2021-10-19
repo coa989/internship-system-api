@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -41,4 +42,44 @@ class AuthControllerTest extends TestCase
             ]);
     }
 
+    public function testEmailNotValid()
+    {
+        $response = $this->postJson('/api/auth/register', [
+            'name' => 'test',
+            'email' => 'test',
+            'password' => 'demo12345',
+            'password_confirmation' => 'demo12345',
+            'token_name' => 'token'
+        ],
+            ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+        ->assertJson([
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'email' => ['The email must be a valid email address.']
+            ]
+        ]);
+    }
+
+    public function testEmailAlreadyExist()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->postJson('/api/auth/register', [
+            'name' => 'test',
+            'email' => $user->email,
+            'password' => 'demo12345',
+            'password_confirmation' => 'demo12345',
+            'token_name' => 'token'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+        ->assertJson([
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'email' => ['The email has already been taken.']
+            ]
+        ]);
+    }
 }
