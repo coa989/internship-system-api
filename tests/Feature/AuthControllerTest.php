@@ -54,12 +54,12 @@ class AuthControllerTest extends TestCase
             ['Accept' => 'application/json']);
 
         $response->assertStatus(422)
-        ->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => ['The email must be a valid email address.']
-            ]
-        ]);
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The email must be a valid email address.']
+                ]
+            ]);
     }
 
     public function testEmailAlreadyExist()
@@ -75,11 +75,27 @@ class AuthControllerTest extends TestCase
         ], ['Accept' => 'application/json']);
 
         $response->assertStatus(422)
-        ->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => ['The email has already been taken.']
-            ]
-        ]);
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The email has already been taken.']
+                ]
+            ]);
+    }
+
+    public function testSuccessfulRegistration()
+    {
+        $response  = $this->postJson('/api/auth/register', [
+            'name' => 'test',
+            'email' => 'test@test.com',
+            'password' => 'demo12345',
+            'password_confirmation' => 'demo12345',
+            'token_name' => 'token'
+        ], ['Accept' => 'application/json']);
+
+        $data = json_decode($response->getContent(), true);
+
+        $response->assertStatus(201);
+        $this->assertNotNull($data['token']);
     }
 }
