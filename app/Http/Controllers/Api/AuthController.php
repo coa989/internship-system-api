@@ -20,7 +20,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return $user->createToken($request->token_name)->plainTextToken;
+        $token = $user->createToken($request->token_name)->plainTextToken;
+
+        return response()->json(['token' => $token], 201);
     }
 
     public function login(LoginUserRequest $request)
@@ -33,7 +35,9 @@ class AuthController extends Controller
             ]);
         }
 
-        return $user->createToken($request->token_name)->plainTextToken;
+        $token = $user->createToken($request->token_name)->plainTextToken;
+
+        return response()->json(['token' => $token], 201);
     }
 
     public function logout(Request $request)
