@@ -42,7 +42,7 @@ class AuthControllerTest extends TestCase
             ]);
     }
 
-    public function testEmailNotValid()
+    public function testEmailNotValidForRegistration()
     {
         $response = $this->postJson('/api/auth/register', [
             'name' => 'test',
@@ -97,5 +97,40 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(201);
         $this->assertNotNull($data['token']);
+    }
+
+    public function testRequiredFieldsForLogin()
+    {
+        $response = $this->postJson('/api/auth/login', ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The email field is required.'],
+                    'password' => ['The password field is required.'],
+                    'token_name' => ['The token name field is required.']
+                ]
+            ]);
+    }
+
+    public function testEmailNotValidForLogin()
+    {
+        $response = $this->postJson('/api/auth/login', [
+            'name' => 'test',
+            'email' => 'test',
+            'password' => 'demo12345',
+            'password_confirmation' => 'demo12345',
+            'token_name' => 'token'
+        ],
+            ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The email must be a valid email address.']
+                ]
+            ]);
     }
 }
