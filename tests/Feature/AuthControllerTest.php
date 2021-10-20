@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AuthControllerTest extends TestCase
@@ -132,5 +133,55 @@ class AuthControllerTest extends TestCase
                     'email' => ['The email must be a valid email address.']
                 ]
             ]);
+    }
+
+    public function testEmailNotFound()
+    {
+        $response = $this->postJson('/api/auth/login', [
+            'email' => 'test@test.com',
+            'password' => 'demo12345',
+            'token_name' => 'token'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The provided credentials are incorrect.']
+                ]
+            ]);
+    }
+
+    public function testPasswordNotCorrect()
+    {
+        $response = $this->postJson('/api/auth/login', [
+            'email' => 'test@test.com',
+            'password' => 'demo12345',
+            'token_name' => 'token'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'email' => ['The provided credentials are incorrect.']
+                ]
+            ]);
+    }
+
+    public function testSuccessfulLogin()
+    {
+        User::factory()->create([
+            'email' => 'test@test.com',
+            'password' => Hash::make('demo12345')
+        ]);
+
+        $response = $this->postJson('/api/auth/login', [
+            'email' => 'test@test.com',
+            'password' => 'demo12345',
+            'token_name' => 'token'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(200);
     }
 }
